@@ -1,2 +1,51 @@
 FROM alpine:3.6
 
+# container env variables
+ENV APP_PORT=${APP_PORT:-"3000"} \
+	APP_VCS_URI=${APP_VCS_URI:-"github.com/roscopecoltran/admin-on-rest-server/server"} \
+	APP_EXECUTABLE=${APP_EXECUTABLE:-"aor-server-basic"}
+
+# image build arguments
+ARG APK_RUNTIME=${APK_RUNTIME:-"ca-certificates openssl"}
+ARG APK_BUILD=${APK_BUILD:-"git libssh2 go gcc musl-dev make cmake openssl-dev libssh2-dev"}
+ARG APK_DEV=${APK_DEV:-"nano bash jq tree"}
+
+# package versions
+ARG GOSU_VERSION=${GOSU_VERSION:-"1.10"}
+
+# Install Gosu to /usr/local/bin/gosu
+ADD https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64 /usr/local/sbin/gosu
+
+# Install runtime dependencies & create runtime user
+RUN chmod +x /usr/local/sbin/gosu \
+	&& apk add --no-cache --no-progress ${APK_RUNTIME}
+	# && adduser -D app -h /data -s /bin/sh
+
+COPY . /app
+WORKDIR /app
+RUN ./docker/build.sh
+
+EXPOSE 61650 61652
+
+# VOLUME ["/app"]
+
+# NSSwitch configuration file
+COPY docker/nsswitch.conf /etc/nsswitch.conf
+
+ENTRYPOINT ["/app/docker/entrypoint.sh"]
+CMD ["dev"] # dev, dist, bash
+# CMD ["/usr/local/sbin/gosu", "app", "/app/admin-on-rest-server"]
+
+## Useful commands:
+
+# - build image: 
+# 	$ docker build -t admin-on-rest-server --no-cache -f Dockerfile.build .
+
+# - run dist: 
+# 	$ docker run --rm -ti -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server dev
+
+# - run build: 
+# 	$ docker run --rm -ti -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server dist
+
+# - run bash: 
+# 	$ docker run --rm -ti -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server bash

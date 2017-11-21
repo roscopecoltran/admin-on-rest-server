@@ -41,10 +41,10 @@ CMD ["run-build"] # run-build, bash
 # 	$ docker build -t aor-entities-front --no-cache -f Dockerfile.build .
 
 # - run bash: 
-# 	$ docker --rm -ti -p 3000:3000 -v `pwd`:/app aor-entities-front bash
+# 	$ docker run --rm -ti -p 3000:3000 -v `pwd`:/app aor-entities-front bash
 
 # - run build: 
-# 	$ docker --rm -ti -p 3000:3000 -v `pwd`:/app aor-entities-front run-build
+# 	$ docker run --rm -ti -p 3000:3000 -v `pwd`:/app aor-entities-front run-build
 
 # - run dev: 
 # 	$ docker run --rm -ti -p 3000:3000 -v `pwd`:/app aor-entities-front run-dev

@@ -9,7 +9,7 @@ services:
     ports:
      - "61650:61650"
     environment:
-     - ELASTICSEARCH_URL=elastic1x:9200
+     - ELASTICSEARCH_URL=es-master:9200
      - REDIS_URL=redis:6379
      - PORT=61650
     volumes:
@@ -24,8 +24,8 @@ services:
       dockerfile: Dockerfile.alpine
     ports:
     - "80:80"
-    volumes:
-    - "./admin:/app/github.com/roscopecoltran/aor-entities/admin"
+    # volumes:
+    # - "./client/admin:/app"
     networks:
      - front
 

@@ -12,7 +12,7 @@ services:
     ports:
      - "61652:61652"
     environment:
-     - ELASTICSEARCH_URL=elastic1x:9200
+     - ELASTICSEARCH_URL=es-master:9200
      - REDIS_URL=redis:6379
      - PORT=61652
     volumes:
