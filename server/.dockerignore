@@ -1,0 +1,6 @@
+*.md
+vendor
+vendor/
+vendor/**
+bin/**
+dist/**
