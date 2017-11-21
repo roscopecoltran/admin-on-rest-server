@@ -13,9 +13,14 @@ import (
 	// "github.com/jinzhu/gorm"
 )
 
+//type applyResource struct {
+//	db *gorm.DB
+//}
+
 // Apply apply
 // swagger:model Apply
 type Apply struct {
+	//gorm.Model
 
 	// email
 	Email string `json:"email,omitempty"`

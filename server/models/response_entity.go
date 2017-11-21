@@ -13,11 +13,17 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
+	// "github.com/jinzhu/gorm"
 )
+
+//type responseEntityResource struct {
+//	db *gorm.DB
+//}
 
 // ResponseEntity response entity
 // swagger:model ResponseEntity
 type ResponseEntity struct {
+	// gorm.Model
 
 	// body
 	Body interface{} `json:"body,omitempty"`

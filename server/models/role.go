@@ -12,11 +12,17 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	// "github.com/jinzhu/gorm"
 )
+
+// type roleResource struct {
+// 	db *gorm.DB
+// }
 
 // Role role
 // swagger:model Role
 type Role struct {
+	// gorm.Model
 
 	// id
 	ID string `json:"id,omitempty"`

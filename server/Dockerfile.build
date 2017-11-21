@@ -25,7 +25,7 @@ COPY . /app
 WORKDIR /app
 RUN ./docker/build.sh
 
-EXPOSE 61650 61652
+EXPOSE 61650
 
 # VOLUME ["/app"]
 
@@ -33,7 +33,7 @@ EXPOSE 61650 61652
 COPY docker/nsswitch.conf /etc/nsswitch.conf
 
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
-CMD ["dev"] # dev, dist, bash
+CMD ["run"] # run, dev, dist, bash
 # CMD ["/usr/local/sbin/gosu", "app", "/app/admin-on-rest-server"]
 
 ## Useful commands:
@@ -42,10 +42,13 @@ CMD ["dev"] # dev, dist, bash
 # 	$ docker build -t admin-on-rest-server --no-cache -f Dockerfile.build .
 
 # - run dist: 
-# 	$ docker run --rm -ti -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server dev
+# 	$ docker run --rm -ti -p 61650:61650 -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server dev
 
 # - run build: 
-# 	$ docker run --rm -ti -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server dist
+# 	$ docker run --rm -ti -p 61650:61650 -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server dist
+
+# - run go: 
+# 	$ docker run --rm -ti -p 61650:61650 -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server run
 
 # - run bash: 
-# 	$ docker run --rm -ti -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server bash
+# 	$ docker run --rm -ti -p 61650:61650 -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server bash

@@ -1,5 +1,8 @@
 package: github.com/roscopecoltran/admin-on-rest-server/server
 import:
+- package: github.com/ant0ine/go-json-rest
+  subpackages:
+  - rest
 - package: github.com/ghetzel/pivot
   subpackages:
   - dal
@@ -16,4 +19,10 @@ import:
 - package: github.com/go-openapi/swag
 - package: github.com/go-openapi/validate
 - package: github.com/jessevdk/go-flags
+- package: github.com/jinzhu/configor
+- package: github.com/jinzhu/gorm
+  subpackages:
+  - dialects/mysql
+  - dialects/postgres
+  - dialects/sqlite
 - package: github.com/tylerb/graceful

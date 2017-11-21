@@ -12,11 +12,17 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	// "github.com/jinzhu/gorm"
 )
+
+//type userResource struct {
+//	db *gorm.DB
+//}
 
 // User user
 // swagger:model User
 type User struct {
+	//gorm.Model
 
 	// email
 	Email string `json:"email,omitempty"`

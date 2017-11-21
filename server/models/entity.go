@@ -14,14 +14,20 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
+	// "github.com/jinzhu/gorm"
 )
+
+//type entityResource struct {
+//	db *gorm.DB
+//}
 
 // Entity entity
 // swagger:model Entity
 type Entity struct {
+	//gorm.Model
 
 	// crud
-	Crud []string `json:"crud"`
+	Crud []string `json:"crud"` // not compatible with gorm models
 
 	// fields
 	Fields []*Field `json:"fields"`

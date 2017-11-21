@@ -10,11 +10,17 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	// "github.com/jinzhu/gorm"
 )
+
+//type applyResource struct {
+//	db *gorm.DB
+//}
 
 // ChoiceItem choice item
 // swagger:model ChoiceItem
 type ChoiceItem struct {
+	// gorm.Model
 
 	// id
 	ID string `json:"id,omitempty"`
