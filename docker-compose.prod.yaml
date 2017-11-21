@@ -16,6 +16,12 @@ services:
      - "./server:/app/github.com/roscopecoltran/aor-entities/server"
     networks:
      - front
+    links:
+    - es-master
+    - mongo
+    - mysql
+    - postgres
+    - redis
 
   admin-dist:
     restart: unless-stopped
@@ -129,6 +135,14 @@ services:
     - ./shared/data/db/postgres:/var/lib/postgresql/data
     networks:
     - front
+
+  mongo:
+    image: mvertes/alpine-mongo:3.4.10-0
+    container_name: mongo
+    ports:
+    - 27017:27017
+    volumes:
+    - ./shared/data/db/mongo:/data/db
 
 #############################
 # ELASTICSEARCH DATA VOLUME #

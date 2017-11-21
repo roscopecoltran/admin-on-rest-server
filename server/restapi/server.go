@@ -34,6 +34,7 @@ var defaultSchemes []string
 func init() {
 	defaultSchemes = []string{
 		schemeHTTP,
+		schemeHTTPS,
 	}
 }
 
@@ -46,8 +47,10 @@ func NewServer(api *operations.EasyAdminAPI) *Server {
 }
 
 // ConfigureAPI configures the API and handlers.
+// func (s *Server) ConfigureAPI(db db.DB) {
 func (s *Server) ConfigureAPI() {
 	if s.api != nil {
+		// s.handler = configureAPI(s.api, db)
 		s.handler = configureAPI(s.api)
 	}
 }
@@ -58,6 +61,8 @@ func (s *Server) ConfigureFlags() {
 		configureFlags(s.api)
 	}
 }
+
+// https://github.com/jianqiu/vps/blob/master/restapi/server.go
 
 // Server for the easy admin API
 type Server struct {

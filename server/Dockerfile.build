@@ -3,7 +3,11 @@ FROM alpine:3.6
 # container env variables
 ENV APP_PORT=${APP_PORT:-"3000"} \
 	APP_VCS_URI=${APP_VCS_URI:-"github.com/roscopecoltran/admin-on-rest-server/server"} \
-	APP_EXECUTABLE=${APP_EXECUTABLE:-"aor-server-basic"}
+	APP_EXECUTABLE=${APP_EXECUTABLE:-"aor-server-basic"} \
+	GOPATH=/usr/share/go
+
+ENV PATH=${PATH}:${GOPATH}/bin
+ENV BUILDPATH=${GOPATH}/src/${APP_VCS_URI}    
 
 # image build arguments
 ARG APK_RUNTIME=${APK_RUNTIME:-"ca-certificates openssl"}
@@ -18,12 +22,12 @@ ADD https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64 
 
 # Install runtime dependencies & create runtime user
 RUN chmod +x /usr/local/sbin/gosu \
-	&& apk add --no-cache --no-progress ${APK_RUNTIME}
+	&& apk add --no-cache --no-progress ${APK_RUNTIME} ${APK_BUILD}	
 	# && adduser -D app -h /data -s /bin/sh
 
 COPY . /app
 WORKDIR /app
-RUN ./docker/build.sh
+# RUN ./docker/build.sh
 
 EXPOSE 61650
 
@@ -42,13 +46,13 @@ CMD ["run"] # run, dev, dist, bash
 # 	$ docker build -t admin-on-rest-server --no-cache -f Dockerfile.build .
 
 # - run dist: 
-# 	$ docker run --rm -ti -p 61650:61650 -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server dev
+# 	$ docker run --rm -ti -p 61650:61650 -v `pwd`:/app/server admin-on-rest-server dev
 
 # - run build: 
-# 	$ docker run --rm -ti -p 61650:61650 -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server dist
+# 	$ docker run --rm -ti -p 61650:61650 -v `pwd`:/app/server admin-on-rest-server dist
 
 # - run go: 
-# 	$ docker run --rm -ti -p 61650:61650 -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server run
+# 	$ docker run --rm -ti -p 61650:61650 -v `pwd`:/app/server admin-on-rest-server run
 
 # - run bash: 
-# 	$ docker run --rm -ti -p 61650:61650 -p 61652:61652 -v `pwd`:/app/server admin-on-rest-server bash
+# 	$ docker run --rm -ti -p 61650:61650 -v `pwd`:/app/server admin-on-rest-server bash
