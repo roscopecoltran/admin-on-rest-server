@@ -1,0 +1,50 @@
+# Do the npm install or yarn install in the full image
+FROM mhart/alpine-node:8
+
+# container env variables
+ENV APP_PORT=${APP_PORT:-"3000"} \
+	NODE_ENV=${NODE_ENV:-"development"}
+
+# image build arguments
+ARG APK_RUNTIME=${APK_RUNTIME:-"ca-certificates openssl"}
+ARG APK_BUILD=${APK_BUILD:-"make gcc g++ python openssl-dev musl-dev cmake git libssh2"}
+ARG APK_DEV=${APK_DEV:-"nano bash"}
+
+# If you have native dependencies, you'll need extra tools
+# RUN apk add --no-cache --no-progress --virtual build-deps ${APK_BUILD}
+RUN apk add --no-cache --no-progress ${APK_RUNTIME}
+
+# RUN npm install --production
+# RUN yarn install --production
+
+WORKDIR /app
+
+COPY package.json /app/package.json
+# COPY yarn.lock /app/yarn.lock
+
+RUN npm install
+
+COPY . /app
+
+EXPOSE 3000 80
+# VOLUME ["/app"]
+
+ENTRYPOINT ["/app/docker/entrypoint.sh"]
+CMD ["run-build"] # run-build, bash
+# CMD ["/bin/bash"]
+# CMD ["npm", "start"] # dev
+# CMD ["serve", "-s", "build", "-p", "3000"] # build
+
+## Useful commands:
+
+# - build image: 
+# 	$ docker build -t aor-entities-front --no-cache -f Dockerfile.build .
+
+# - run bash: 
+# 	$ docker --rm -ti -p 3000:3000 -v `pwd`:/app aor-entities-front bash
+
+# - run build: 
+# 	$ docker --rm -ti -p 3000:3000 -v `pwd`:/app aor-entities-front run-build
+
+# - run dev: 
+# 	$ docker run --rm -ti -p 3000:3000 -v `pwd`:/app aor-entities-front run-dev

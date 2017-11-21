@@ -1,0 +1,17 @@
+export * from './ApplycontrollerApi';
+import { ApplycontrollerApi } from './ApplycontrollerApi';
+export * from './AuthenticationrestcontrollerApi';
+import { AuthenticationrestcontrollerApi } from './AuthenticationrestcontrollerApi';
+export * from './DatacontrollerApi';
+import { DatacontrollerApi } from './DatacontrollerApi';
+export * from './DatasourcecontrollerApi';
+import { DatasourcecontrollerApi } from './DatasourcecontrollerApi';
+export * from './PermissioncontrollerApi';
+import { PermissioncontrollerApi } from './PermissioncontrollerApi';
+export * from './RolecontrollerApi';
+import { RolecontrollerApi } from './RolecontrollerApi';
+export * from './SchemacontrollerApi';
+import { SchemacontrollerApi } from './SchemacontrollerApi';
+export * from './UsercontrollerApi';
+import { UsercontrollerApi } from './UsercontrollerApi';
+export const APIS = [ApplycontrollerApi, AuthenticationrestcontrollerApi, DatacontrollerApi, DatasourcecontrollerApi, PermissioncontrollerApi, RolecontrollerApi, SchemacontrollerApi, UsercontrollerApi];

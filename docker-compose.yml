@@ -1,0 +1,175 @@
+# refs:
+# - https://github.com/blacktop/docker-elasticsearch-alpine/blob/master/docker-compose.yml
+# - 
+
+version: '2'
+services:
+
+  server-dev:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile.build
+    ports:
+     - "61652:61652"
+    environment:
+     - ELASTICSEARCH_URL=elastic1x:9200
+     - REDIS_URL=redis:6379
+     - PORT=61652
+    volumes:
+     - "./server:/app/github.com/roscopecoltran/aor-entities/server"
+    networks:
+     - front
+
+  admin-dev:
+    build: 
+      context: ./client/admin
+      dockerfile: Dockerfile.build # .copy
+    ports:
+     - "3000:3000"
+    environment:
+     - NODE_ENV=development
+    volumes:
+     - "./admin:/app/github.com/roscopecoltran/aor-entities/admin"
+    networks:
+     - front
+
+  redis:
+    image: redis:3.2.11-alpine
+    container_name: redis
+    networks:
+     - front
+
+  nginx-phpfpm:
+    image: dydx/alpine-nginx-phpfpm
+    ports:
+    - "8080:80"
+    volumes:
+    - ./shared/data/www:/var/www:delegated
+    - ./shared/conf/nginx/default.conf:/etc/nginx/sites-enabled/default
+    links:
+    - mysql:mysql
+
+  mysql:
+    image: leafney/docker-alpine-mysql
+    ports:
+    - "3306:3306"
+    environment:
+    - MYSQL_ROOT_PWD="root_password"
+    - MYSQL_USER="user"
+    - MYSQL_USER_PWD="password"
+    - MYSQL_USER_DB="password"
+    volumes:
+    - ./shared/data/db/mysql:/var/lib/mysql
+
+  postgres:
+    image: postgres:9.6.6-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: aor-entities
+      POSTGRES_PASSWORD: aor-password # to change in prod
+      POSTGRES_DBNAME: aor-entities
+      POSTGRES_DBUSER: aor
+      POSTGRES_DBPASS: aor-dbpassword
+    volumes:
+    - ./shared/data/db/postgres:/var/lib/postgresql/data
+    networks:
+    - front
+
+  #############################
+  # ELASTICSEARCH MASTER NODE #
+  #############################
+  # REPOSITORY               TAG                 SIZE
+  # blacktop/elasticsearch   latest              117MB
+  # blacktop/elasticsearch   6.0                 117MB
+  # blacktop/elasticsearch   5.6                 124MB
+  # blacktop/elasticsearch   5.5                 123MB
+  # blacktop/elasticsearch   5.4                 123MB
+  # blacktop/elasticsearch   5.3                 123MB
+  # blacktop/elasticsearch   x-pack              691MB
+  # blacktop/elasticsearch   geoip               150MB
+  # blacktop/elasticsearch   5.2                 150MB
+  # blacktop/elasticsearch   5.1                 149MB
+  # blacktop/elasticsearch   5.0                 148.4MB
+  # blacktop/elasticsearch   2.4                 116MB
+  # blacktop/elasticsearch   kopf                122MB
+  # blacktop/elasticsearch   2.3                 139.1MB
+  # blacktop/elasticsearch   1.7                 142.7MB
+  # NOTE:
+  # - tag x-pack is the same as tag latest, but includes the x-pack, the ingest-geoip and the ingest-user-agent plugin.
+  # - tag geoip is the same as tag latest, but includes the ingest-geoip and the ingest-user-agent plugin.
+  # - tag kopf is the same as tag 2.4, but includes the kopf plugin.
+  es-master:
+    restart: unless-stopped
+    image: blacktop/elasticsearch:x-pack
+    command: master
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+    - IPC_LOCK
+    volumes:
+    # - data:/usr/share/elasticsearch/data
+    - ./shared/data/idx/elastic:/usr/share/elasticsearch/data
+    networks:
+    - elastic
+
+  ####################################
+  # ELASTICSEARCH CLIENT/INGEST NODE #
+  ####################################
+  es-ingest:
+    restart: unless-stopped
+    image: blacktop/elasticsearch:x-pack
+    command: ingest
+    ports:
+    - "9200:9200"
+    links:
+    - es-master:elastic-master
+    networks:
+    - elastic
+
+  ###########################
+  # ELASTICSEARCH DATA NODE #
+  ###########################
+  es-data:
+    restart: unless-stopped
+    image: blacktop/elasticsearch:x-pack
+    environment:
+    - ES_JAVA_OPTS=-Xms2g -Xmx2g
+    command: data
+    links:
+    - es-master:elastic-master
+    # volumes:
+    #   - data:/usr/share/elasticsearch/data
+    networks:
+    - elastic
+
+  ###############
+  # KIBANA NODE #
+  ###############
+  kibana:
+    image: blacktop/kibana:x-pack
+    ports:
+    - "5601:5601"
+    links:
+    - es-ingest:elasticsearch
+    networks:
+    - elastic
+
+#############################
+# ELASTICSEARCH DATA VOLUME #
+#############################
+volumes:
+  data:
+
+################################
+# ELASTICSEARCH BRIDGE NETWORK #
+################################
+networks:
+  front:
+    driver: bridge
+  elastic:
+    driver: bridge

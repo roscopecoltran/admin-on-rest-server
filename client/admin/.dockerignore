@@ -1,0 +1,9 @@
+# exclude downloaded dependencies
+node_modules
+node_modules/
+node_modules/**
+
+Dockerfile*
+*.md
+Makefile
+makefile
