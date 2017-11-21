@@ -10,18 +10,11 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	// "github.com/jinzhu/gorm"
 )
 
-// Apply apply
-// swagger:model Apply
-type Apply struct {
-
-	// email
-	Email string `json:"email,omitempty"`
-
-	// mobile
-	Mobile string `json:"mobile,omitempty"`
+// JwtAuthenticationRequest jwt authentication request
+// swagger:model JwtAuthenticationRequest
+type JwtAuthenticationRequest struct {
 
 	// password
 	Password string `json:"password,omitempty"`
@@ -30,8 +23,8 @@ type Apply struct {
 	Username string `json:"username,omitempty"`
 }
 
-// Validate validates this apply
-func (m *Apply) Validate(formats strfmt.Registry) error {
+// Validate validates this jwt authentication request
+func (m *JwtAuthenticationRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if len(res) > 0 {
@@ -41,7 +34,7 @@ func (m *Apply) Validate(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Apply) MarshalBinary() ([]byte, error) {
+func (m *JwtAuthenticationRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -49,8 +42,8 @@ func (m *Apply) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Apply) UnmarshalBinary(b []byte) error {
-	var res Apply
+func (m *JwtAuthenticationRequest) UnmarshalBinary(b []byte) error {
+	var res JwtAuthenticationRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -10,28 +10,18 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	// "github.com/jinzhu/gorm"
 )
 
-// Apply apply
-// swagger:model Apply
-type Apply struct {
+// GrantedAuthority granted authority
+// swagger:model GrantedAuthority
+type GrantedAuthority struct {
 
-	// email
-	Email string `json:"email,omitempty"`
-
-	// mobile
-	Mobile string `json:"mobile,omitempty"`
-
-	// password
-	Password string `json:"password,omitempty"`
-
-	// username
-	Username string `json:"username,omitempty"`
+	// authority
+	Authority string `json:"authority,omitempty"`
 }
 
-// Validate validates this apply
-func (m *Apply) Validate(formats strfmt.Registry) error {
+// Validate validates this granted authority
+func (m *GrantedAuthority) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if len(res) > 0 {
@@ -41,7 +31,7 @@ func (m *Apply) Validate(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Apply) MarshalBinary() ([]byte, error) {
+func (m *GrantedAuthority) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -49,8 +39,8 @@ func (m *Apply) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Apply) UnmarshalBinary(b []byte) error {
-	var res Apply
+func (m *GrantedAuthority) UnmarshalBinary(b []byte) error {
+	var res GrantedAuthority
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

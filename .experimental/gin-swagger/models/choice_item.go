@@ -10,28 +10,21 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	// "github.com/jinzhu/gorm"
 )
 
-// Apply apply
-// swagger:model Apply
-type Apply struct {
+// ChoiceItem choice item
+// swagger:model ChoiceItem
+type ChoiceItem struct {
 
-	// email
-	Email string `json:"email,omitempty"`
+	// id
+	ID string `json:"id,omitempty"`
 
-	// mobile
-	Mobile string `json:"mobile,omitempty"`
-
-	// password
-	Password string `json:"password,omitempty"`
-
-	// username
-	Username string `json:"username,omitempty"`
+	// name
+	Name string `json:"name,omitempty"`
 }
 
-// Validate validates this apply
-func (m *Apply) Validate(formats strfmt.Registry) error {
+// Validate validates this choice item
+func (m *ChoiceItem) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if len(res) > 0 {
@@ -41,7 +34,7 @@ func (m *Apply) Validate(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Apply) MarshalBinary() ([]byte, error) {
+func (m *ChoiceItem) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -49,8 +42,8 @@ func (m *Apply) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Apply) UnmarshalBinary(b []byte) error {
-	var res Apply
+func (m *ChoiceItem) UnmarshalBinary(b []byte) error {
+	var res ChoiceItem
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

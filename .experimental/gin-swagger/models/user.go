@@ -10,28 +10,36 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	// "github.com/jinzhu/gorm"
 )
 
-// Apply apply
-// swagger:model Apply
-type Apply struct {
+// User user
+// swagger:model User
+type User struct {
 
 	// email
 	Email string `json:"email,omitempty"`
 
-	// mobile
-	Mobile string `json:"mobile,omitempty"`
+	// enabled
+	Enabled bool `json:"enabled,omitempty"`
+
+	// id
+	ID string `json:"id,omitempty"`
+
+	// last password reset date
+	LastPasswordResetDate strfmt.DateTime `json:"lastPasswordResetDate,omitempty"`
 
 	// password
 	Password string `json:"password,omitempty"`
+
+	// roles
+	Roles UserRoles `json:"roles"`
 
 	// username
 	Username string `json:"username,omitempty"`
 }
 
-// Validate validates this apply
-func (m *Apply) Validate(formats strfmt.Registry) error {
+// Validate validates this user
+func (m *User) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if len(res) > 0 {
@@ -41,7 +49,7 @@ func (m *Apply) Validate(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Apply) MarshalBinary() ([]byte, error) {
+func (m *User) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -49,8 +57,8 @@ func (m *Apply) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Apply) UnmarshalBinary(b []byte) error {
-	var res Apply
+func (m *User) UnmarshalBinary(b []byte) error {
+	var res User
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
