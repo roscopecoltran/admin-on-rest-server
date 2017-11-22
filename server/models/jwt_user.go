@@ -6,26 +6,19 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	// "github.com/jinzhu/gorm"
+	"github.com/jinzhu/gorm"
 )
-
-//type jwtUserResource struct {
-//	db *gorm.DB
-//}
 
 // JwtUser jwt user
 // swagger:model JwtUser
 type JwtUser struct {
-	//gorm.Model
-
+	gorm.Model
 	// authorities
-	Authorities []*GrantedAuthority `json:"authorities"`
+	Authorities JwtUserAuthorities `json:"authorities"`
 
 	// email
 	Email string `json:"email,omitempty"`
@@ -41,41 +34,9 @@ type JwtUser struct {
 func (m *JwtUser) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAuthorities(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *JwtUser) validateAuthorities(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Authorities) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Authorities); i++ {
-
-		if swag.IsZero(m.Authorities[i]) { // not required
-			continue
-		}
-
-		if m.Authorities[i] != nil {
-
-			if err := m.Authorities[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("authorities" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 

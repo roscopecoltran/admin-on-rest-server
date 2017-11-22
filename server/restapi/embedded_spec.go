@@ -19,7 +19,7 @@ func init() {
     "title": "DataHive RESTful APIs",
     "version": "1.0"
   },
-  "host": "localhost:8080",
+  "host": "localhost:7000",
   "basePath": "/",
   "paths": {
     "/api/{entity}": {

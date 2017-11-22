@@ -6,23 +6,15 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	// "github.com/jinzhu/gorm"
 )
-
-// type roleResource struct {
-// 	db *gorm.DB
-// }
 
 // Role role
 // swagger:model Role
 type Role struct {
-	// gorm.Model
 
 	// id
 	ID string `json:"id,omitempty"`
@@ -31,48 +23,16 @@ type Role struct {
 	Name string `json:"name,omitempty"`
 
 	// users
-	Users []*User `json:"users"`
+	Users RoleUsers `json:"users"`
 }
 
 // Validate validates this role
 func (m *Role) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateUsers(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *Role) validateUsers(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Users) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Users); i++ {
-
-		if swag.IsZero(m.Users[i]) { // not required
-			continue
-		}
-
-		if m.Users[i] != nil {
-
-			if err := m.Users[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("users" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 

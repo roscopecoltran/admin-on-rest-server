@@ -8,29 +8,25 @@ package models
 import (
 	"encoding/json"
 	"strconv"
+	// "strings"
 
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
-	// "github.com/jinzhu/gorm"
 )
-
-//type entityResource struct {
-//	db *gorm.DB
-//}
 
 // Entity entity
 // swagger:model Entity
 type Entity struct {
-	//gorm.Model
 
 	// crud
-	Crud []string `json:"crud"` // not compatible with gorm models
+	CrudStr string   `json:"crud"`
+	Crud    []string `gorm:"-" json:"crud"`
 
 	// fields
-	Fields []*Field `json:"fields"`
+	Fields EntityFields `json:"fields"`
 
 	// id
 	ID string `json:"id,omitempty"`
@@ -53,11 +49,6 @@ func (m *Entity) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCrud(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateFields(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -103,33 +94,6 @@ func (m *Entity) validateCrud(formats strfmt.Registry) error {
 		// value enum
 		if err := m.validateCrudItemsEnum("crud"+"."+strconv.Itoa(i), "body", m.Crud[i]); err != nil {
 			return err
-		}
-
-	}
-
-	return nil
-}
-
-func (m *Entity) validateFields(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Fields) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Fields); i++ {
-
-		if swag.IsZero(m.Fields[i]) { // not required
-			continue
-		}
-
-		if m.Fields[i] != nil {
-
-			if err := m.Fields[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("fields" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
 		}
 
 	}

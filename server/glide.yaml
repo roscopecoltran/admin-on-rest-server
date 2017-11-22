@@ -1,28 +1,17 @@
-package: github.com/roscopecoltran/admin-on-rest-server/server
+package: github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger
+ignore:
+- golang.org/x/crypto
 import:
-- package: github.com/ant0ine/go-json-rest
-  subpackages:
-  - rest
-- package: github.com/ghetzel/pivot
-  subpackages:
-  - dal
-  - mapper
+- package: github.com/gin-contrib/pprof
+- package: github.com/gin-gonic/gin
 - package: github.com/go-openapi/errors
-- package: github.com/go-openapi/loads
 - package: github.com/go-openapi/runtime
-  subpackages:
-  - flagext
-  - middleware
-  - security
-- package: github.com/go-openapi/spec
 - package: github.com/go-openapi/strfmt
 - package: github.com/go-openapi/swag
 - package: github.com/go-openapi/validate
-- package: github.com/jessevdk/go-flags
-- package: github.com/jinzhu/configor
-- package: github.com/jinzhu/gorm
+- package: github.com/mikkeloscar/gin-swagger
   subpackages:
-  - dialects/mysql
-  - dialects/postgres
-  - dialects/sqlite
-- package: github.com/tylerb/graceful
+  - api
+  - middleware
+- package: github.com/sirupsen/logrus
+- package: gopkg.in/alecthomas/kingpin.v2

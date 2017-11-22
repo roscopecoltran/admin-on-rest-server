@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 
-	// "github.com/fatih/structs"
 	// "github.com/k0kubun/pp"
 	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/config"
 	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/database"
@@ -28,17 +27,6 @@ func main() {
 	svc := &AdminOnRestServer{Health: false}
 
 	api := restapi.NewAPI(svc, &apiConfig)
-	// pp.Println(api)
-
-	/*
-		names := structs.Names(api.Routes)
-		for _, name := range names {
-			if name != "Engine" {
-				fmt.Printf("name: %s\n", name)
-				// tables = append(tables, models.(name))
-			}
-		}
-	*/
 	database.CreateTables(true, database.DefaultTables...)
 
 	err = api.RunWithSigHandler()

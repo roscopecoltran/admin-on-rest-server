@@ -10,18 +10,13 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	// "github.com/jinzhu/gorm"
+	"github.com/jinzhu/gorm"
 )
-
-//type grantedAuthorityResource struct {
-//	db *gorm.DB
-//}
 
 // GrantedAuthority granted authority
 // swagger:model GrantedAuthority
 type GrantedAuthority struct {
-	//gorm.Model
-
+	gorm.Model
 	// authority
 	Authority string `json:"authority,omitempty"`
 }

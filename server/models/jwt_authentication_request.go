@@ -10,18 +10,13 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	// "github.com/jinzhu/gorm"
+	"github.com/jinzhu/gorm"
 )
-
-//type jwtAuthenticationRequestResource struct {
-//	db *gorm.DB
-//}
 
 // JwtAuthenticationRequest jwt authentication request
 // swagger:model JwtAuthenticationRequest
 type JwtAuthenticationRequest struct {
-	//gorm.Model
-
+	gorm.Model
 	// password
 	Password string `json:"password,omitempty"`
 
