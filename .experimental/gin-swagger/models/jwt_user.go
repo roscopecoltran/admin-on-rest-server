@@ -10,12 +10,13 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/jinzhu/gorm"
 )
 
 // JwtUser jwt user
 // swagger:model JwtUser
 type JwtUser struct {
-
+	gorm.Model
 	// authorities
 	Authorities JwtUserAuthorities `json:"authorities"`
 

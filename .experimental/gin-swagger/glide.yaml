@@ -1,0 +1,17 @@
+package: github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger
+ignore:
+- golang.org/x/crypto
+import:
+- package: github.com/gin-contrib/pprof
+- package: github.com/gin-gonic/gin
+- package: github.com/go-openapi/errors
+- package: github.com/go-openapi/runtime
+- package: github.com/go-openapi/strfmt
+- package: github.com/go-openapi/swag
+- package: github.com/go-openapi/validate
+- package: github.com/mikkeloscar/gin-swagger
+  subpackages:
+  - api
+  - middleware
+- package: github.com/sirupsen/logrus
+- package: gopkg.in/alecthomas/kingpin.v2

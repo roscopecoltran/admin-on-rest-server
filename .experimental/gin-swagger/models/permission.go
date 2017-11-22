@@ -10,12 +10,13 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/jinzhu/gorm"
 )
 
 // Permission permission
 // swagger:model Permission
 type Permission struct {
-
+	gorm.Model
 	// c
 	C bool `json:"c,omitempty"`
 

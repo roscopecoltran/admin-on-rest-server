@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	defaultAddress = ":8080"
+	defaultAddress = ":7000"
 )
 
 // Config defines the config options for the API server.
@@ -25,7 +25,7 @@ type Config struct {
 // Parse parses configuration from commandline flags.
 func (c *Config) Parse() error {
 	kingpin.Flag("debug", "Enable debug logging and pprof metrics.").BoolVar(&c.Debug)
-	kingpin.Flag("address", "Address to listen on, e.g. :8080 or 0.0.0.0:8080.").
+	kingpin.Flag("address", "Address to listen on, e.g. :8080 or 0.0.0.0:7000.").
 		Default(defaultAddress).StringVar(&c.Address)
 	kingpin.Flag("insecure-http", "Service only HTTP.").BoolVar(&c.InsecureHTTP)
 	kingpin.Flag("tls-cert-file", "Path to TLS Cert file used when serving HTTPS.").

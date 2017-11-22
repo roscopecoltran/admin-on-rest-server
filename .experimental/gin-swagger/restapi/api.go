@@ -22,6 +22,8 @@ import (
 	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/schema_controller"
 	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/user_controller"
 	log "github.com/sirupsen/logrus"
+	ginoauth2 "github.com/zalando/gin-oauth2"
+	"golang.org/x/oauth2"
 )
 
 // Routes defines all the routes of the API service.
@@ -29,146 +31,182 @@ type Routes struct {
 	*gin.Engine
 	AddDataSourceUsingPOST struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	AddEntityUsingPOST struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	AddFieldUsingPOST struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	AddPermissionUsingPOST struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	AddRoleUsingPOST struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	AddUserUsingPOST struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	ApplyUsingPOST struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	CreateAuthenticationTokenUsingPOST struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	DataMutationUsingDELETE struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	DataMutationUsingPOST struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	DataMutationUsingPUT struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	DataQueryUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	EditDataSourceUsingPUT struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	EditEntityUsingPUT struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	EditFieldUsingPUT struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	EditFieldUsingPUT1 struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	EditPermissionUsingPUT struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	EditRoleUsingPUT struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindAllFieldsUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindEntityFieldsUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindOneFieldUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindOneUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindOneUsingGET1 struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindRoleUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindRoleUsingGET1 struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindUserUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindUserUsingGET1 struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	GetAuthenticatedUserUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	GetSchemasUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	ListUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	ListUsingGET1 struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	ListUsingGET2 struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	ListUsingGET3 struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	RefreshAndGetAuthenticationTokenUsingGET struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	ResetCurrentDsUsingPUT struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	SyncSchemasUsingPUT struct {
 		*gin.RouterGroup
+		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 }
@@ -215,10 +253,30 @@ func healthHandler(healthFunc func() bool) gin.HandlerFunc {
 	}
 }
 
+/*
+func infoHandler(infoFunc func() bool) gin.HandlerFunc {
+	info := infoFunc
+	return func(ctx *gin.Context) {
+		info := struct {
+			Infos bool `json:"health"`
+		}{
+			Infos: info(),
+		}
+
+		if !info.Infos {
+			ctx.JSON(http.StatusServiceUnavailable, &info)
+		} else {
+			ctx.JSON(http.StatusOK, &info)
+		}
+	}
+}
+*/
+
 // Service is the interface that must be implemented in order to provide
 // business logic for the API service.
 type Service interface {
 	Healthy() bool
+	Info(ctx *gin.Context) *api.Response
 	AddDataSourceUsingPOST(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingPOSTParams) *api.Response
 	AddEntityUsingPOST(ctx *gin.Context, params *schema_controller.AddEntityUsingPOSTParams) *api.Response
 	AddFieldUsingPOST(ctx *gin.Context, params *schema_controller.AddFieldUsingPOSTParams) *api.Response
@@ -270,11 +328,25 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 	routes.AddDataSourceUsingPOST.RouterGroup = routes.Group("")
 	routes.AddDataSourceUsingPOST.RouterGroup.Use(middleware.ContentTypes("application/json"))
+	if enableAuth {
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "http://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.AddDataSourceUsingPOST.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+		routes.AddDataSourceUsingPOST.RouterGroup.Use(routes.AddDataSourceUsingPOST.Auth)
+	}
 	routes.AddDataSourceUsingPOST.Post = routes.AddDataSourceUsingPOST.Group("")
 	routes.AddDataSourceUsingPOST.Post.POST(ginizePath("/datasource/_datasource"), data_source_controller.BusinessLogicAddDataSourceUsingPOST(service.AddDataSourceUsingPOST))
 
 	routes.AddEntityUsingPOST.RouterGroup = routes.Group("")
 	routes.AddEntityUsingPOST.RouterGroup.Use(middleware.ContentTypes("application/json"))
+
 	routes.AddEntityUsingPOST.Post = routes.AddEntityUsingPOST.Group("")
 	routes.AddEntityUsingPOST.Post.POST(ginizePath("/schemas/_entitys"), schema_controller.BusinessLogicAddEntityUsingPOST(service.AddEntityUsingPOST))
 
@@ -477,6 +549,9 @@ func NewAPI(svc Service, config *Config) *API {
 
 	// configure healthz endpoint
 	api.Routes.GET("/healthz", healthHandler(svc.Healthy))
+
+	// configure info endpoint
+	// api.Routes.GET("/info", infoHandler(svc.Info))
 
 	return api
 }

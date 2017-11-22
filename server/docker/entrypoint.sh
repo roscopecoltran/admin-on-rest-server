@@ -29,7 +29,7 @@ case "$1" in
     golang_deps
     glide_deps ${BUILDPATH}
     cd ${BUILDPATH}
-    exec go run cmd/aor-server-basic/main.go --port 61650
+    exec go run cmd/aor-server-basic/main.go --port 7000
     ;;
   'dev')
     export APK_DEV=${APK_DEV:-"nano bash jq tree"}

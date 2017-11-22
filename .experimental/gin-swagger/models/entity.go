@@ -8,20 +8,24 @@ package models
 import (
 	"encoding/json"
 	"strconv"
+	// "strings"
 
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
+	"github.com/jinzhu/gorm"
 )
 
 // Entity entity
 // swagger:model Entity
 type Entity struct {
+	gorm.Model
 
 	// crud
-	Crud []string `json:"crud"`
+	Crud []string `gorm:"-" json:"crud"` // maybe we should split a string
+	// Crud string `json:"crud"`
 
 	// fields
 	Fields EntityFields `json:"fields"`

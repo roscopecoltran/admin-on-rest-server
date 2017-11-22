@@ -10,12 +10,13 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/jinzhu/gorm"
 )
 
 // Role role
 // swagger:model Role
 type Role struct {
-
+	gorm.Model
 	// id
 	ID string `json:"id,omitempty"`
 

@@ -13,12 +13,13 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
+	"github.com/jinzhu/gorm"
 )
 
 // Field field
 // swagger:model Field
 type Field struct {
-
+	gorm.Model
 	// choices
 	Choices []IChoiceItem `json:"choices"`
 

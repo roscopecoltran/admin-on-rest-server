@@ -1,0 +1,4 @@
+db:
+  adapter: sqlite
+  name: admin_on_rest_entities
+  user: root

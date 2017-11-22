@@ -13,12 +13,13 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
+	"github.com/jinzhu/gorm"
 )
 
 // DataSource data source
 // swagger:model DataSource
 type DataSource struct {
-
+	gorm.Model
 	// cluster name
 	ClusterName string `json:"clusterName,omitempty"`
 

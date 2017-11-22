@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: DataHive RESTful APIs
-host: 'localhost:8080'
+host: 'localhost:7000'
 basePath: /
 tags:
   - name: data-controller
