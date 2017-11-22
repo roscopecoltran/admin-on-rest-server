@@ -1,7 +1,7 @@
-package: github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger
-ignore:
-- golang.org/x/crypto
+package: github.com/roscopecoltran/admin-on-rest-server/server
 import:
+- package: github.com/azumads/faker
+- package: github.com/fatih/structs
 - package: github.com/gin-contrib/pprof
 - package: github.com/gin-gonic/gin
 - package: github.com/go-openapi/errors
@@ -9,9 +9,17 @@ import:
 - package: github.com/go-openapi/strfmt
 - package: github.com/go-openapi/swag
 - package: github.com/go-openapi/validate
+- package: github.com/jinzhu/configor
+- package: github.com/jinzhu/gorm
+  subpackages:
+  - dialects/mysql
+  - dialects/postgres
+  - dialects/sqlite
 - package: github.com/mikkeloscar/gin-swagger
   subpackages:
   - api
   - middleware
 - package: github.com/sirupsen/logrus
+- package: github.com/zalando/gin-oauth2
+- package: golang.org/x/oauth2
 - package: gopkg.in/alecthomas/kingpin.v2

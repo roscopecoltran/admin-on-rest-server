@@ -3,14 +3,14 @@ package main
 import (
 	"net/http"
 
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/apply_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/authentication_rest_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/data_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/data_source_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/permission_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/role_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/schema_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/user_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/apply_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/authentication_rest_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/data_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/data_source_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/permission_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/role_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/schema_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/user_controller"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mikkeloscar/gin-swagger/api"

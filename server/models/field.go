@@ -17,7 +17,11 @@ import (
 
 // Field field
 // swagger:model Field
+//go:generate gormgen -structs Field -output field_gorm.go
 type Field struct {
+
+	// id
+	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// choices
 	Choices []IChoiceItem `json:"choices"`
@@ -33,9 +37,6 @@ type Field struct {
 
 	// eid
 	Eid string `json:"eid,omitempty"`
-
-	// id
-	ID string `json:"id,omitempty"`
 
 	// input type
 	InputType string `json:"inputType,omitempty"`

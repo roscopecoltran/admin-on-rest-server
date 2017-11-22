@@ -18,6 +18,7 @@ import (
 
 // ResponseEntity response entity
 // swagger:model ResponseEntity
+//go:generate gormgen -structs ResponseEntity -output response_entity_gorm.go
 type ResponseEntity struct {
 	gorm.Model
 

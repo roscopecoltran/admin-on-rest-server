@@ -1,17 +1,18 @@
 version: '2'
 services:
 
-  server-dist:
+  server:
     restart: unless-stopped
     build:
       context: ./server/dist
       dockerfile: Dockerfile.scratch
     ports:
-     - "61650:61650"
+    - "61650:61650"
     environment:
-     - ELASTICSEARCH_URL=es-master:9200
-     - REDIS_URL=redis:6379
-     - PORT=61650
+    - ELASTICSEARCH_URL=es-master:9200
+    - REDIS_URL=redis:6379
+    - APP_PORT=61650
+    # - DB_DSN=postgres://postgres:password@db:5432/apig?sslmode=disable
     volumes:
      - "./server:/app/github.com/roscopecoltran/aor-entities/server"
     networks:
@@ -23,7 +24,12 @@ services:
     - postgres
     - redis
 
-  admin-dist:
+  web-migrate:
+    extends: server
+    environment:
+    - AUTOMIGRATE=1
+
+  client:
     restart: unless-stopped
     build: 
       context: ./client/admin/build
@@ -33,7 +39,7 @@ services:
     # volumes:
     # - "./client/admin:/app"
     networks:
-     - front
+    - front
 
   #############################
   # ELASTICSEARCH MASTER NODE #

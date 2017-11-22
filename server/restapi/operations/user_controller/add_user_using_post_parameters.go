@@ -14,7 +14,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/models"
+	"github.com/roscopecoltran/admin-on-rest-server/server/models"
 )
 
 // BusinessLogicAddUserUsingPOST executes the core logic of the related

@@ -15,6 +15,7 @@ import (
 
 // Apply apply
 // swagger:model Apply
+//go:generate gormgen -structs Apply -output apply_gorm.go
 type Apply struct {
 	gorm.Model
 

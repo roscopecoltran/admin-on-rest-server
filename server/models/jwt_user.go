@@ -15,8 +15,10 @@ import (
 
 // JwtUser jwt user
 // swagger:model JwtUser
+//go:generate gormgen -structs JwtUser -output jwt_user_gorm.go
 type JwtUser struct {
 	gorm.Model
+
 	// authorities
 	Authorities JwtUserAuthorities `json:"authorities"`
 

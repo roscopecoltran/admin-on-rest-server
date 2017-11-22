@@ -14,10 +14,11 @@ import (
 
 // ChoiceItem choice item
 // swagger:model ChoiceItem
+//go:generate gormgen -structs ChoiceItem -output choice_item_gorm.go
 type ChoiceItem struct {
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// name
 	Name string `json:"name,omitempty"`

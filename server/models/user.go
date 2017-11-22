@@ -14,16 +14,17 @@ import (
 
 // User user
 // swagger:model User
+//go:generate gormgen -structs User -output user_gorm.go
 type User struct {
+
+	// id
+	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// email
 	Email string `json:"email,omitempty"`
 
 	// enabled
 	Enabled bool `json:"enabled,omitempty"`
-
-	// id
-	ID string `json:"id,omitempty"`
 
 	// last password reset date
 	LastPasswordResetDate strfmt.DateTime `json:"lastPasswordResetDate,omitempty"`

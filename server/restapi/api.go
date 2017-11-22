@@ -13,14 +13,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/mikkeloscar/gin-swagger/api"
 	"github.com/mikkeloscar/gin-swagger/middleware"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/apply_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/authentication_rest_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/data_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/data_source_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/permission_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/role_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/schema_controller"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/restapi/operations/user_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/apply_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/authentication_rest_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/data_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/data_source_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/permission_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/role_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/schema_controller"
+	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/user_controller"
 	log "github.com/sirupsen/logrus"
 	ginoauth2 "github.com/zalando/gin-oauth2"
 	"golang.org/x/oauth2"
@@ -320,10 +320,15 @@ func ginizePath(path string) string {
 }
 
 // configureRoutes configures the routes for the API service.
-func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes {
+func configureRoutes(service Service, enableAuth bool /*enableDatabase bool,*/, tokenURL string) *Routes {
 	engine := gin.New()
 	engine.Use(gin.Recovery())
 	engine.Use(middleware.LogrusLogger())
+	/*
+		if enableDatabase {
+			engine.Use(middleware.SetDBtoContext(db))
+		}
+	*/
 	routes := &Routes{Engine: engine}
 
 	routes.AddDataSourceUsingPOST.RouterGroup = routes.Group("")

@@ -14,7 +14,11 @@ import (
 
 // Permission permission
 // swagger:model Permission
+//go:generate gormgen -structs Permission -output permission_gorm.go
 type Permission struct {
+
+	// id
+	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// c
 	C bool `json:"c,omitempty"`
@@ -24,9 +28,6 @@ type Permission struct {
 
 	// eid
 	Eid string `json:"eid,omitempty"`
-
-	// id
-	ID string `json:"id,omitempty"`
 
 	// r
 	R bool `json:"r,omitempty"`

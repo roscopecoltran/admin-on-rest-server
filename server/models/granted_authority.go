@@ -15,8 +15,10 @@ import (
 
 // GrantedAuthority granted authority
 // swagger:model GrantedAuthority
+//go:generate gormgen -structs GrantedAuthority -output granted_authority_gorm.go
 type GrantedAuthority struct {
 	gorm.Model
+
 	// authority
 	Authority string `json:"authority,omitempty"`
 }

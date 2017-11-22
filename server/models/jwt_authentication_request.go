@@ -15,8 +15,10 @@ import (
 
 // JwtAuthenticationRequest jwt authentication request
 // swagger:model JwtAuthenticationRequest
+//go:generate gormgen -structs JwtAuthenticationRequest -output jwt_authentication_request_gorm.go
 type JwtAuthenticationRequest struct {
 	gorm.Model
+
 	// password
 	Password string `json:"password,omitempty"`
 

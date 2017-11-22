@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/fatih/structs"
-	"github.com/roscopecoltran/admin-on-rest-server/.experimental/gin-swagger/models"
+	"github.com/roscopecoltran/admin-on-rest-server/server/models"
 )
 
 var (

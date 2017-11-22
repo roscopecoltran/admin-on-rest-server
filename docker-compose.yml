@@ -10,13 +10,14 @@ services:
       context: ./server
       dockerfile: Dockerfile.build
     ports:
-     - "61652:61652"
+    - "61652:61652"
     environment:
-     - ELASTICSEARCH_URL=es-master:9200
-     - REDIS_URL=redis:6379
-     - PORT=61652
+    - ELASTICSEARCH_URL=es-master:9200
+    - REDIS_URL=redis:6379
+    - APP_PORT=61652
+    # - DB_DSN=postgres://postgres:password@db:5432/apig?sslmode=disable
     volumes:
-     - "./server:/app/github.com/roscopecoltran/aor-entities/server"
+    - "./server:/app/github.com/roscopecoltran/aor-entities/server"
     networks:
      - front
     links:
@@ -26,24 +27,29 @@ services:
     - postgres
     - redis
 
+  web-migrate:
+    extends: server-dev
+    environment:
+    - AUTOMIGRATE=1
+
   admin-dev:
     build: 
       context: ./client/admin
       dockerfile: Dockerfile.build # .copy
     ports:
-     - "3000:3000"
+    - "3000:3000"
     environment:
-     - NODE_ENV=development
+    - NODE_ENV=development
     volumes:
-     - "./admin:/app/github.com/roscopecoltran/aor-entities/admin"
+    - "./admin:/app/github.com/roscopecoltran/aor-entities/admin"
     networks:
-     - front
+    - front
 
   redis:
     image: redis:3.2.11-alpine
     container_name: redis
     networks:
-     - front
+    - front
 
   nginx-phpfpm:
     image: dydx/alpine-nginx-phpfpm

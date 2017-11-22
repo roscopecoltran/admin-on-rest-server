@@ -17,7 +17,11 @@ import (
 
 // DataSource data source
 // swagger:model DataSource
+//go:generate gormgen -structs DataSource -output data_source_gorm.go
 type DataSource struct {
+
+	// id
+	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// cluster name
 	ClusterName string `json:"clusterName,omitempty"`
@@ -27,9 +31,6 @@ type DataSource struct {
 
 	// db name
 	DbName string `json:"dbName,omitempty"`
-
-	// id
-	ID string `json:"id,omitempty"`
 
 	// index name
 	IndexName string `json:"indexName,omitempty"`

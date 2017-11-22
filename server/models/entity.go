@@ -19,7 +19,11 @@ import (
 
 // Entity entity
 // swagger:model Entity
+//go:generate gormgen -structs Entity -output entity_gorm.go
 type Entity struct {
+
+	// id
+	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// crud
 	CrudStr string   `json:"crud"`
@@ -27,9 +31,6 @@ type Entity struct {
 
 	// fields
 	Fields EntityFields `json:"fields"`
-
-	// id
-	ID string `json:"id,omitempty"`
 
 	// label
 	Label string `json:"label,omitempty"`

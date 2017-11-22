@@ -1,5 +1,5 @@
-hash: 2a524d00d0c2a42b7ee9e0e85d725e746195ffcbb5caf73fa8731ac5ab9bafa7
-updated: 2017-11-22T11:41:27.972891137+01:00
+hash: 49bf93a235ad21a6f9bb333bba6eefd982e21440442aa5f357826753abe49694
+updated: 2017-11-22T14:32:22.234483151+01:00
 imports:
 - name: github.com/alecthomas/template
   version: a0175ee3bccc567396460bf5acd36800cb10c49c
@@ -8,16 +8,21 @@ imports:
 - name: github.com/alecthomas/units
   version: 2efee857e7cfd4f3d0138cc3cbb1b4966962b93a
 - name: github.com/asaskevich/govalidator
-  version: f682aee18e37332521b3c3ef4cba9ddb9b516b09
+  version: 2c14e1cca90af49b3b21fe2d7aaa8cc7f9da2ff8
+- name: github.com/azumads/faker
+  version: 6cae71ddb10767f30fbb8a9d3d6b5baf792c33e7
+- name: github.com/BurntSushi/toml
+  version: a368813c5e648fee92e5f6c30e3944ff9d5e8895
+- name: github.com/fatih/structs
+  version: f5faa72e73092639913f5833b75e1ac1d6bc7a63
 - name: github.com/gin-contrib/pprof
-  version: 1bed199bb871cc4ba0696177304604f1a3eff57c
+  version: cea200e02ddddca4b843d75d32aa13c413549de9
 - name: github.com/gin-contrib/sse
   version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
 - name: github.com/gin-gonic/gin
-  version: eeb57848cac06c360a3c262837394051018b8f66
+  version: d459835d2b077e44f7c9b453505ee29881d5d12d
   subpackages:
   - binding
-  - json
   - render
 - name: github.com/go-openapi/analysis
   version: 8ed83f2ea9f00f945516462951a288eaa68bf0d6
@@ -28,80 +33,104 @@ imports:
 - name: github.com/go-openapi/jsonreference
   version: 36d33bfe519efae5632669801b180bf1a245da3b
 - name: github.com/go-openapi/loads
-  version: c3e1ca4c0b6160cac10aeef7e8b425cc95b9c820
+  version: a80dea3052f00e5f032e860dd7355cd0cc67e24d
 - name: github.com/go-openapi/runtime
-  version: 4ab0c2c86df53f4f138421a6b88d53dd9fd30254
+  version: bf2ff8f7150788b1c7256abb0805ba0410cbbabb
 - name: github.com/go-openapi/spec
-  version: a4fa9574c7aa73b2fc54e251eb9524d0482bb592
+  version: 3faa0055dbbf2110abc1f3b4e3adbb22721e96e7
 - name: github.com/go-openapi/strfmt
   version: 610b6cacdcde6852f4de68998bd20ce1dac85b22
 - name: github.com/go-openapi/swag
-  version: cf0bdb963811675a4d7e74901cefc7411a1df939
+  version: f3f9494671f93fcff853e3c6e9e948b3eb71e590
 - name: github.com/go-openapi/validate
-  version: d509235108fcf6ab4913d2dcb3a2260c0db2108e
+  version: 8a82927c942c94794a5cd8b8b50ce2f48a955c0c
+- name: github.com/go-sql-driver/mysql
+  version: cd4cb909ce1a31435164be29bf3682031f61539a
 - name: github.com/golang/glog
-  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
+  version: 44145f04b68cf362d9c4df2182967c2275eaefed
 - name: github.com/golang/protobuf
-  version: 655cdfa588ea190e901bc5590e65d5621688847c
+  version: 8616e8ee5e20a1704615e6c8d7afcdac06087a67
   subpackages:
   - proto
-- name: github.com/json-iterator/go
-  version: f7279a603edee96fe7764d3de9c6ff8cf9970994
+- name: github.com/jinzhu/configor
+  version: 6ecfe629230f24c2e92c7894c6ab21b83b757a39
+- name: github.com/jinzhu/gorm
+  version: 0a51f6cdc55d1650d9ed3b4c13026cfa9133b01e
+  subpackages:
+  - dialects/mysql
+  - dialects/postgres
+  - dialects/sqlite
+- name: github.com/jinzhu/inflection
+  version: 1c35d901db3da928c72a72d8458480cc9ade058f
+- name: github.com/lib/pq
+  version: 8c6ee72f3e6bcb1542298dd5f76cb74af9742cec
+  subpackages:
+  - hstore
+  - oid
 - name: github.com/mailru/easyjson
-  version: 32fa128f234d041f196a9f3e0fea5ac9772c08e1
+  version: 2a92e673c9a6302dd05c3a691ae1f24aef46457d
   subpackages:
   - buffer
   - jlexer
   - jwriter
 - name: github.com/mattn/go-isatty
-  version: 6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c
+  version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
+- name: github.com/mattn/go-sqlite3
+  version: d5ffb5c0cca8778699a929b236766f4a7af674e8
 - name: github.com/mikkeloscar/gin-swagger
   version: e38a2125d079efd9d635310981f05634bbe827c3
   subpackages:
   - api
   - middleware
 - name: github.com/mitchellh/mapstructure
-  version: 06020f85339e21b2478f756a78e295255ffa4d6a
+  version: 53818660ed4955e899c0bcafa97299a388bd7c8e
 - name: github.com/PuerkitoBio/purell
-  version: 1c4bec281e4bbc75b4f4a1bd923bdf1bd989a969
+  version: 8a290539e2e8629dbc4e6bad948158f790ec31f4
 - name: github.com/PuerkitoBio/urlesc
-  version: de5bf2ad457846296e2031421a34e2568e304e35
+  version: 5bd2802263f21d8788851d5305584c82a5c75d7e
 - name: github.com/sirupsen/logrus
   version: f006c2ac4710855cf0f916dd6b77acf6b048dc6e
 - name: github.com/ugorji/go
-  version: 84cb69a8af8316eed8cf4a3c9368a56977850062
+  version: ded73eae5db7e7a0ef6f55aace87a2873c5d2b74
   subpackages:
   - codec
 - name: github.com/zalando/gin-oauth2
   version: 60e21b8c80831d68accaa0fe9e69c2b7f38ba112
 - name: golang.org/x/crypto
-  version: 9f005a07e0d31d45e6656d241bb5c0f2efd4bc94
+  version: 847319b7fc94cab682988f93da778204da164588
   subpackages:
   - ssh/terminal
 - name: golang.org/x/net
-  version: e45385e9b226f570b1f086bf287b25d3d4117776
+  version: f2499483f923065a842d38eb4c7f1927e6fc6e6d
   subpackages:
   - context
-  - context/ctxhttp
   - idna
 - name: golang.org/x/oauth2
-  version: f95fa95eaa936d9d87489b15d1d18b97c1ba9c28
+  version: 7fdf09982454086d5570c7db3e11f360194830ca
   subpackages:
   - internal
 - name: golang.org/x/sys
-  version: 7a6e5648d140666db5d920909e082ca00a87ba2c
+  version: 8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9
   subpackages:
   - unix
   - windows
 - name: golang.org/x/text
-  version: 88f656faf3f37f690df1a32515b479415e1a6769
+  version: 2910a502d2bf9e43193af9d68ca516529614eed3
   subpackages:
+  - cases
+  - internal/tag
+  - language
+  - runes
+  - secure/bidirule
+  - secure/precis
   - transform
+  - unicode/bidi
   - unicode/norm
   - width
 - name: google.golang.org/appengine
-  version: 9d8544a6b2c7df9cff240fcf92d7b2f59bc13416
+  version: 4f7eeb5305a4ba1966344836ba4af9996b7b4e05
   subpackages:
+  - cloudsql
   - internal
   - internal/base
   - internal/datastore
@@ -119,5 +148,5 @@ imports:
   - bson
   - internal/json
 - name: gopkg.in/yaml.v2
-  version: a3f3340b5840cee44f372bddb5880fcbc419b46a
+  version: 53feefa2559fb8dfa8d81baad31be332c97d6c77
 testImports: []

@@ -1,0 +1,6 @@
+*-linux
+*-darwin
+*.db
+vendor/
+./api
+./aors-api

@@ -14,10 +14,11 @@ import (
 
 // Role role
 // swagger:model Role
+//go:generate gormgen -structs Role -output role_gorm.go
 type Role struct {
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// name
 	Name string `json:"name,omitempty"`
