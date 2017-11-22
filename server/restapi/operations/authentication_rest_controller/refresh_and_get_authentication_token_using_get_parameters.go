@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/errors"
-	"github.com/mikkeloscar/gin-swagger/api"
+	"github.com/roscopecoltran/admin-on-rest-server/server/api"
 )
 
 // BusinessLogicRefreshAndGetAuthenticationTokenUsingGET executes the core logic of the related

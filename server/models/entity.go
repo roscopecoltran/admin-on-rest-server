@@ -26,23 +26,23 @@ type Entity struct {
 	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// crud
-	CrudStr string   `json:"crud"`
-	Crud    []string `gorm:"-" json:"crud"`
+	CrudStr string   `json:"crudstr"`
+	Crud    []string `gorm:"-" json:"crud" form:"crud"`
 
 	// fields
-	Fields EntityFields `json:"fields"`
+	Fields EntityFields `json:"fields" form:"fields"`
 
 	// label
-	Label string `json:"label,omitempty"`
+	Label string `json:"label,omitempty" form:"label"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" form:"name"`
 
 	// redirect
-	Redirect string `json:"redirect,omitempty"`
+	Redirect string `json:"redirect,omitempty" form:"redirect"`
 
 	// show in menu
-	ShowInMenu bool `json:"showInMenu,omitempty"`
+	ShowInMenu bool `json:"showInMenu,omitempty" form:"showInMenu"`
 }
 
 // Validate validates this entity

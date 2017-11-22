@@ -11,8 +11,14 @@ import (
 
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
-	"github.com/mikkeloscar/gin-swagger/api"
-	"github.com/mikkeloscar/gin-swagger/middleware"
+	"github.com/jinzhu/gorm"
+	log "github.com/sirupsen/logrus"
+	ginoauth2 "github.com/zalando/gin-oauth2"
+	"golang.org/x/oauth2"
+
+	"github.com/roscopecoltran/admin-on-rest-server/server/api"
+	"github.com/roscopecoltran/admin-on-rest-server/server/database"
+	"github.com/roscopecoltran/admin-on-rest-server/server/middleware"
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/apply_controller"
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/authentication_rest_controller"
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/data_controller"
@@ -21,9 +27,6 @@ import (
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/role_controller"
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/schema_controller"
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/user_controller"
-	log "github.com/sirupsen/logrus"
-	ginoauth2 "github.com/zalando/gin-oauth2"
-	"golang.org/x/oauth2"
 )
 
 // Routes defines all the routes of the API service.
@@ -320,15 +323,13 @@ func ginizePath(path string) string {
 }
 
 // configureRoutes configures the routes for the API service.
-func configureRoutes(service Service, enableAuth bool /*enableDatabase bool,*/, tokenURL string) *Routes {
+func configureRoutes(service Service, db *gorm.DB, enableAuth bool, tokenURL string) *Routes {
 	engine := gin.New()
 	engine.Use(gin.Recovery())
 	engine.Use(middleware.LogrusLogger())
-	/*
-		if enableDatabase {
-			engine.Use(middleware.SetDBtoContext(db))
-		}
-	*/
+	if db != nil {
+		engine.Use(middleware.DatabaseContext(db))
+	}
 	routes := &Routes{Engine: engine}
 
 	routes.AddDataSourceUsingPOST.RouterGroup = routes.Group("")
@@ -513,11 +514,12 @@ func configureRoutes(service Service, enableAuth bool /*enableDatabase bool,*/, 
 
 // API defines the API service.
 type API struct {
-	Routes  *Routes
-	config  *Config
-	server  *http.Server
-	Title   string
-	Version string
+	Routes   *Routes
+	Database *gorm.DB
+	config   *Config
+	server   *http.Server
+	Title    string
+	Version  string
 }
 
 // NewAPI initializes a new API service.
@@ -527,8 +529,9 @@ func NewAPI(svc Service, config *Config) *API {
 	}
 
 	api := &API{
-		Routes:  configureRoutes(svc, !config.AuthDisabled, config.TokenURL),
-		config:  config,
+		Routes: configureRoutes(svc, database.DB, !config.AuthDisabled, config.TokenURL),
+		config: config,
+		// database: svc.DataSource,
 		Title:   "DataHive RESTful APIs",
 		Version: "1.0",
 	}

@@ -19,6 +19,7 @@ import:
   subpackages:
   - api
   - middleware
+- package: github.com/pressly/goose
 - package: github.com/sirupsen/logrus
 - package: github.com/zalando/gin-oauth2
 - package: golang.org/x/oauth2

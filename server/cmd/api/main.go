@@ -11,7 +11,6 @@ import (
 
 var (
 	apiConfig restapi.Config
-	// svcConfig config.Config
 )
 
 func main() {
@@ -24,10 +23,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	svc := &AdminOnRestServer{Health: false}
+	database.CreateTables(true, database.DefaultTables...)
+	svc := &AdminOnRestServer{Health: false} // , DataSource: database.DB}
 
 	api := restapi.NewAPI(svc, &apiConfig)
-	database.CreateTables(true, database.DefaultTables...)
 
 	err = api.RunWithSigHandler()
 	if err != nil {

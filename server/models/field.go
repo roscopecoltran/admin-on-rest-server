@@ -24,67 +24,67 @@ type Field struct {
 	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// choices
-	Choices []IChoiceItem `json:"choices"`
+	Choices []IChoiceItem `json:"choices" form:"choices"`
 
 	// component
-	Component string `json:"component,omitempty"`
+	Component string `json:"component,omitempty" form:"component"`
 
 	// data source Id
-	DataSourceID string `json:"dataSourceId,omitempty"`
+	DataSourceID string `json:"dataSourceId,omitempty" form:"dataSourceId"`
 
 	// default value
-	DefaultValue string `json:"defaultValue,omitempty"`
+	DefaultValue string `json:"defaultValue,omitempty" form:"defaultValue"`
 
 	// eid
-	Eid string `json:"eid,omitempty"`
+	Eid string `json:"eid,omitempty" form:"eid"`
 
 	// input type
-	InputType string `json:"inputType,omitempty"`
+	InputType string `json:"inputType,omitempty" form:"inputType"`
 
 	// is auto incremented
-	IsAutoIncremented bool `json:"isAutoIncremented,omitempty"`
+	IsAutoIncremented bool `json:"isAutoIncremented,omitempty" form:"isAutoIncremented"`
 
 	// is part of primary key
-	IsPartOfPrimaryKey bool `json:"isPartOfPrimaryKey,omitempty"`
+	IsPartOfPrimaryKey bool `json:"isPartOfPrimaryKey,omitempty" form:"isPartOfPrimaryKey"`
 
 	// label
-	Label string `json:"label,omitempty"`
+	Label string `json:"label,omitempty" form:"label"`
 
 	// max length
-	MaxLength int32 `json:"maxLength,omitempty"`
+	MaxLength int32 `json:"maxLength,omitempty" form:"maxLength"`
 
 	// max value
-	MaxValue string `json:"maxValue,omitempty"`
+	MaxValue string `json:"maxValue,omitempty" form:"maxValue"`
 
 	// min value
-	MinValue string `json:"minValue,omitempty"`
+	MinValue string `json:"minValue,omitempty" form:"minValue"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" form:"name"`
 
 	// reference
-	Reference string `json:"reference,omitempty"`
+	Reference string `json:"reference,omitempty" form:"reference"`
 
 	// reference option text
-	ReferenceOptionText string `json:"referenceOptionText,omitempty"`
+	ReferenceOptionText string `json:"referenceOptionText,omitempty" form:"referenceOptionText"`
 
 	// required
-	Required bool `json:"required,omitempty"`
+	Required bool `json:"required,omitempty" form:"required"`
 
 	// show in create
-	ShowInCreate bool `json:"showInCreate,omitempty"`
+	ShowInCreate bool `json:"showInCreate,omitempty" form:"showInCreate"`
 
 	// show in edit
-	ShowInEdit bool `json:"showInEdit,omitempty"`
+	ShowInEdit bool `json:"showInEdit,omitempty" form:"showInEdit"`
 
 	// show in filter
-	ShowInFilter bool `json:"showInFilter,omitempty"`
+	ShowInFilter bool `json:"showInFilter,omitempty" form:"showInFilter"`
 
 	// show in list
-	ShowInList bool `json:"showInList,omitempty"`
+	ShowInList bool `json:"showInList,omitempty" form:"showInList"`
 
 	// show in show
-	ShowInShow bool `json:"showInShow,omitempty"`
+	ShowInShow bool `json:"showInShow,omitempty" form:"showInShow"`
 }
 
 // Validate validates this field

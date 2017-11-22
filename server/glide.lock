@@ -1,5 +1,5 @@
-hash: 49bf93a235ad21a6f9bb333bba6eefd982e21440442aa5f357826753abe49694
-updated: 2017-11-22T14:32:22.234483151+01:00
+hash: 043d09ab36d813c16de264772ebedc48a7e919ff8c3583a5ec365e022eea9ae3
+updated: 2017-11-22T16:03:18.643194451+01:00
 imports:
 - name: github.com/alecthomas/template
   version: a0175ee3bccc567396460bf5acd36800cb10c49c
@@ -84,6 +84,8 @@ imports:
   - middleware
 - name: github.com/mitchellh/mapstructure
   version: 53818660ed4955e899c0bcafa97299a388bd7c8e
+- name: github.com/pressly/goose
+  version: 54bcdbef439f4e2821d730cb4893f19c4c374ed9
 - name: github.com/PuerkitoBio/purell
   version: 8a290539e2e8629dbc4e6bad948158f790ec31f4
 - name: github.com/PuerkitoBio/urlesc

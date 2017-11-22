@@ -21,7 +21,7 @@ type ChoiceItem struct {
 	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" form:"name"`
 }
 
 // Validate validates this choice item

@@ -20,16 +20,16 @@ type Apply struct {
 	gorm.Model
 
 	// email
-	Email string `json:"email,omitempty"`
+	Email string `json:"email,omitempty" form:"email"`
 
 	// mobile
-	Mobile string `json:"mobile,omitempty"`
+	Mobile string `json:"mobile,omitempty" form:"mobile"`
 
 	// password
-	Password string `json:"password,omitempty"`
+	Password string `json:"password,omitempty" form:"password"`
 
 	// username
-	Username string `json:"username,omitempty"`
+	Username string `json:"username,omitempty" form:"username"`
 }
 
 // Validate validates this apply

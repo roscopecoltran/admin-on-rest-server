@@ -8,7 +8,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/errors"
-	"github.com/mikkeloscar/gin-swagger/api"
+
+	"github.com/roscopecoltran/admin-on-rest-server/server/api"
 
 	strfmt "github.com/go-openapi/strfmt"
 )

@@ -29,7 +29,7 @@ type ServiceConfig struct {
 		PrefixPath    string `env:"DB_PREFIX_PATH" default:"./"`
 		MigrationsDir string `env:"DB_MIGRATION_DIR" default:"./shared/data/seeds"`
 		Secured       bool   `env:"DB_SECURED" default:"false"`
-		SingularTable bool   `env:"DB_SINGULAR_TABLE" default:"false"`
+		SingularTable bool   `env:"DB_SINGULAR_TABLE" default:"true"`
 		Debug         bool   `env:"DB_DEBUG" default:"false"`
 		// DSN           string `env:"DB_DSN" default:"host=localhost user=ireflect password=1Reflect dbname=ireflect-dev sslmode=disable"`
 	}

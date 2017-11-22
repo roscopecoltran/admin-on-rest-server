@@ -24,31 +24,31 @@ type DataSource struct {
 	ID string `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 
 	// cluster name
-	ClusterName string `json:"clusterName,omitempty"`
+	ClusterName string `json:"clusterName,omitempty" form:"clusterName"`
 
 	// current
-	Current bool `json:"current,omitempty"`
+	Current bool `json:"current,omitempty" form:"current"`
 
 	// db name
-	DbName string `json:"dbName,omitempty"`
+	DbName string `json:"dbName,omitempty" form:"dbName"`
 
 	// index name
-	IndexName string `json:"indexName,omitempty"`
+	IndexName string `json:"indexName,omitempty" form:"indexName"`
 
 	// jdbc Url
-	JdbcURL string `json:"jdbcUrl,omitempty"`
+	JdbcURL string `json:"jdbcUrl,omitempty" form:"jdbcUrl"`
 
 	// my Sql db name
-	MySQLDbName string `json:"mySqlDbName,omitempty"`
+	MySQLDbName string `json:"mySqlDbName,omitempty" form:"mySqlDbName"`
 
 	// password
-	Password string `json:"password,omitempty"`
+	Password string `json:"password,omitempty" form:"password"`
 
 	// type
-	Type string `json:"type,omitempty"`
+	Type string `json:"type,omitempty" form:"type"`
 
 	// username
-	Username string `json:"username,omitempty"`
+	Username string `json:"username,omitempty" form:"username"`
 }
 
 // Validate validates this data source

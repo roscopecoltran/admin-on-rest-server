@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/roscopecoltran/admin-on-rest-server/server/api"
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/apply_controller"
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/authentication_rest_controller"
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/data_controller"
@@ -12,8 +13,12 @@ import (
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/schema_controller"
 	"github.com/roscopecoltran/admin-on-rest-server/server/restapi/operations/user_controller"
 
+	"github.com/jinzhu/gorm"
+	"github.com/k0kubun/pp"
+	// "github.com/roscopecoltran/admin-on-rest-server/server/database"
+	"github.com/roscopecoltran/admin-on-rest-server/server/models"
+
 	"github.com/gin-gonic/gin"
-	"github.com/mikkeloscar/gin-swagger/api"
 )
 
 type AdminOnRestServer struct {
@@ -29,7 +34,21 @@ func (s *AdminOnRestServer) Info(ctx *gin.Context) *api.Response {
 }
 
 func (s *AdminOnRestServer) AddDataSourceUsingPOST(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+	pp.Println("params: ", params)
+	db := ctx.MustGet("db").(*gorm.DB)
+	var user models.User
+	var queryRes models.User
+	ctx.Bind(&user)
+	db.Where("email = ?", user.Email).First(&queryRes)
+	response := make(map[string]string)
+	if queryRes.Email != "" {
+		response["error"] = "Duplicate resource."
+	} else {
+		db.Create(&user)
+		response := make(map[string]string)
+		response["error"] = "Duplicate resource."
+	}
+	return &api.Response{Code: http.StatusOK, Body: response}
 }
 
 func (s *AdminOnRestServer) AddEntityUsingPOST(ctx *gin.Context, params *schema_controller.AddEntityUsingPOSTParams) *api.Response {
@@ -49,11 +68,33 @@ func (s *AdminOnRestServer) AddRoleUsingPOST(ctx *gin.Context, params *role_cont
 }
 
 func (s *AdminOnRestServer) AddUserUsingPOST(ctx *gin.Context, params *user_controller.AddUserUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+	pp.Println("params: ", params)
+	db := ctx.MustGet("db").(*gorm.DB)
+	var queryRes models.User
+	db.Where("email = ?", params.User.Email).First(&queryRes)
+	response := make(map[string]string)
+	if queryRes.Email != "" {
+		response["error"] = "Duplicate resource."
+	} else {
+		db.Create(&params.User)
+		response["msg"] = "Success, new user created."
+	}
+	return &api.Response{Code: http.StatusOK, Body: response}
 }
 
 func (s *AdminOnRestServer) ApplyUsingPOST(ctx *gin.Context, params *apply_controller.ApplyUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+	pp.Println("params: ", params)
+	db := ctx.MustGet("db").(*gorm.DB)
+	var queryRes models.Apply
+	db.Where("email = ?", params.Apply.Email).First(&queryRes)
+	response := make(map[string]string)
+	if queryRes.Email != "" {
+		response["error"] = "Duplicate resource."
+	} else {
+		db.Create(&params.Apply)
+		response["msg"] = "Success, new user created."
+	}
+	return &api.Response{Code: http.StatusOK, Body: response}
 }
 
 func (s *AdminOnRestServer) CreateAuthenticationTokenUsingPOST(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingPOSTParams) *api.Response {
@@ -141,7 +182,16 @@ func (s *AdminOnRestServer) GetAuthenticatedUserUsingGET(ctx *gin.Context) *api.
 }
 
 func (s *AdminOnRestServer) GetSchemasUsingGET(ctx *gin.Context) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+	db := ctx.MustGet("db").(*gorm.DB)
+	var queryRes []models.Entity
+	response := make(map[string]interface{})
+	if err := db.Select("*").Find(&queryRes).Error; err != nil {
+		response["error"] = err.Error()
+		return &api.Response{Code: 400, Body: response}
+	}
+	response["results"] = queryRes
+	response["status"] = "success"
+	return &api.Response{Code: http.StatusOK, Body: response}
 }
 
 func (s *AdminOnRestServer) ListUsingGET(ctx *gin.Context) *api.Response {
@@ -157,7 +207,16 @@ func (s *AdminOnRestServer) ListUsingGET2(ctx *gin.Context) *api.Response {
 }
 
 func (s *AdminOnRestServer) ListUsingGET3(ctx *gin.Context) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+	db := ctx.MustGet("db").(*gorm.DB)
+	var queryRes []models.User
+	response := make(map[string]interface{})
+	if err := db.Select("*").Find(&queryRes).Error; err != nil {
+		response["error"] = err.Error()
+		return &api.Response{Code: 400, Body: response}
+	}
+	response["results"] = queryRes
+	response["status"] = "success"
+	return &api.Response{Code: http.StatusOK, Body: response}
 }
 
 func (s *AdminOnRestServer) RefreshAndGetAuthenticationTokenUsingGET(ctx *gin.Context) *api.Response {

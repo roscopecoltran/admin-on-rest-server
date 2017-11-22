@@ -5,9 +5,9 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func SetDBtoContext(db *gorm.DB) gin.HandlerFunc {
+func DatabaseContext(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Set("DB", db)
+		c.Set("db", db)
 		c.Next()
 	}
 }

@@ -10,10 +10,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/mikkeloscar/gin-swagger/api"
+	"github.com/roscopecoltran/admin-on-rest-server/server/api"
 
 	strfmt "github.com/go-openapi/strfmt"
 
+	// "github.com/jinzhu/gorm"
+	// "github.com/k0kubun/pp"
+	// "github.com/roscopecoltran/admin-on-rest-server/server/database"
 	"github.com/roscopecoltran/admin-on-rest-server/server/models"
 )
 
@@ -35,7 +38,7 @@ func BusinessLogicAddUserUsingPOST(f func(ctx *gin.Context, params *AddUserUsing
 			ctx.JSON(problem.Status, problem)
 			return
 		}
-
+		// pp.Println("params: ", params)
 		resp := f(ctx, params)
 		switch resp.Code {
 		case http.StatusNoContent:
@@ -70,7 +73,6 @@ func AddUserUsingPOSTParamsFromCtx(ctx *gin.Context) *AddUserUsingPOSTParams {
 func (o *AddUserUsingPOSTParams) bindRequest(ctx *gin.Context) error {
 	var res []error
 	formats := strfmt.NewFormats()
-
 	if runtime.HasBody(ctx.Request) {
 		var body models.User
 		if err := ctx.BindJSON(&body); err != nil {

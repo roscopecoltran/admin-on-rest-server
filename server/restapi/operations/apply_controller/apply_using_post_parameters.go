@@ -10,9 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/mikkeloscar/gin-swagger/api"
 
 	strfmt "github.com/go-openapi/strfmt"
+	"github.com/roscopecoltran/admin-on-rest-server/server/api"
 
 	"github.com/roscopecoltran/admin-on-rest-server/server/models"
 )
